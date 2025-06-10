@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      PGHOST: db
+      PGUSER: postgres
+      PGPASSWORD: password
+      PGDATABASE: order_management_system
+      PGPORT: 5432
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: order_management_system
+    ports:
+      - "5432:5432"
