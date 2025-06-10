@@ -2,6 +2,9 @@
 # Environment variables
 .env
 
+# Build files
+dist
+
 # Configuration files
 config.json
 
