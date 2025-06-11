@@ -1,6 +1,6 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { User } from "../user/user.entity";
-import { Product } from "../product/product.entity";
+import { OrderItem } from "./order-item.entity";
 
 @Entity()
 export class Order {
@@ -12,9 +12,9 @@ export class Order {
  })
  user!: User;
 
- @ManyToOne(() => Product)
- @JoinColumn({ name: 'productId' })
- products!: Product[];
+ @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
+ @JoinColumn()
+ orderItems!: OrderItem[];
 
  @CreateDateColumn()
  @Column()
