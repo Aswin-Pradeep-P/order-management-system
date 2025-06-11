@@ -1,8 +1,8 @@
-import { Column, OneToMany, OneToOne } from "typeorm";
+import { Column, JoinColumn, OneToMany, OneToOne } from "typeorm";
 import { PrimaryGeneratedColumn } from "typeorm";
 import { Entity } from "typeorm";
 import { Order } from "../order/order.entity";
-import { Cart } from "../cart/cart.enity";
+import { Cart } from "../cart/cart.entity";
 
 @Entity()
 export class User {
@@ -22,10 +22,10 @@ export class User {
   address!: string;
 
   @OneToMany(() => Order, (order) => order.user)
-  @Column()
-  orders!: Order;
+  @JoinColumn()
+  orders!: Order[];
 
   @OneToOne(() => Cart, (cart) => cart.user)
-  @Column()
-  cart!: Order;
+  @JoinColumn()
+  cart!: Cart;
 }

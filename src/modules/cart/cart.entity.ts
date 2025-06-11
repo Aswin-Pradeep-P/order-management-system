@@ -13,6 +13,6 @@ export class Cart {
   user!: User;
 
   @OneToMany(() => CartItem, (cartItem) => cartItem.cart)
-  @Column()
-  cartItems!: CartItem[];
+  @JoinColumn()
+  items!: CartItem[];
 }

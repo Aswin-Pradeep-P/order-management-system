@@ -7,7 +7,9 @@
     "start": "ts-node src/index.ts",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "prod": "node dist/index.js"
+    "prod": "node dist/index.js",
+    "migrate:gen": "ts-node ./node_modules/typeorm/cli.js migration:generate src/migrations/$npm_config_name -d src/config/data-source.ts",
+    "migrate:run": "ts-node ./node_modules/typeorm/cli.js migration:run -d src/config/data-source.ts"
   },
   "repository": {
     "type": "git",
@@ -31,6 +33,7 @@
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "pg": "^8.16.0",
+    "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.24"
   }
 }

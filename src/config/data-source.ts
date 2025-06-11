@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 
 import dotenv from 'dotenv';
@@ -16,6 +17,11 @@ export const AppDataSource = new DataSource({
     process.env.NODE_ENV === 'production'
       ? 'dist/modules/**/*.entity.js'
       : 'src/modules/**/*.entity.ts',
+  ],
+  migrations: [
+    process.env.NODE_ENV === 'production'
+      ? 'dist/migrations/*.js'
+      : 'dist/migrations/*.ts',
   ],
 });
 
