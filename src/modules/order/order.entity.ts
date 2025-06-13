@@ -12,7 +12,9 @@ export class Order {
  })
  user!: User;
 
- @OneToMany(() => OrderItem, (orderItem) => orderItem.order)
+ @OneToMany(() => OrderItem, (orderItem) => orderItem.order, {
+  cascade: true,
+ })
  @JoinColumn()
  orderItems!: OrderItem[];
 
