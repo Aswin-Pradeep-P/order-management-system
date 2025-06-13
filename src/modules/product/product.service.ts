@@ -10,7 +10,7 @@ export class ProductService {
    }
    const {category, minPrice, maxPrice} = filter;
    const query = ProductRepository.createQueryBuilder("product");
-   
+
    if(category){
     query.andWhere("product.category = :category", {category});
    }
