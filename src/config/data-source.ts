@@ -11,7 +11,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  synchronize: true,
+  synchronize: false,
   logging: false,
   entities: [
     process.env.NODE_ENV === 'production'
@@ -21,7 +21,7 @@ export const AppDataSource = new DataSource({
   migrations: [
     process.env.NODE_ENV === 'production'
       ? 'dist/migrations/*.js'
-      : 'dist/migrations/*.ts',
+      : 'src/migrations/*.ts',
   ],
 });
 
