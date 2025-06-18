@@ -3,5 +3,10 @@ export interface CreateUserDto{
  email: string;
  password: string;
  address: string;
- 
+
+}
+
+export interface LoginUserDto{
+  email: string;
+  password: string;
 }
