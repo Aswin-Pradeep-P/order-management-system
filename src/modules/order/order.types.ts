@@ -4,3 +4,11 @@ export type CreateOrderDto = {
     quantity: number;
   }[];
 }
+
+export enum OrderStatus {
+  PENDING = 'pending',
+  CONFIRMED = 'confirmed',
+  SHIPPED = 'shipped',
+  DELIVERED = 'delivered',
+  CANCELLED = 'cancelled',
+}

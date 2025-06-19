@@ -35,4 +35,8 @@ export class UserService{
 
     return jwt.sign({userId: existingUser.id}, process.env.JWT_SECRET!, {expiresIn: '1h'});
   }
+
+  async findUserById(id: string){
+    return  await UserRespository.findOneBy({ id })
+  }
 }
