@@ -25,5 +25,9 @@ export class ProductService {
 
    return await query.getMany();
   }
+
+  async getProductById(id: string): Promise<Product | null> {
+    return await ProductRepository.findOneBy({id});
+  }
 }
 

@@ -6,13 +6,15 @@ import { Cart } from "../cart/cart.entity";
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column()
   name!: string;
 
-  @Column()
+  @Column({
+    unique: true
+  })
   email!: string;
 
   @Column()

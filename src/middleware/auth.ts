@@ -16,7 +16,7 @@ const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
  try {
    const decoded = jwt.verify(token, process.env.JWT_SECRET!);
    console.log(decoded);
-   // (req as CustomRequest).user = decoded;
+   (req as CustomRequest).user = decoded as { username: string };
    next();
  } catch {
    res.sendStatus(403);
