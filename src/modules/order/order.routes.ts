@@ -11,5 +11,5 @@ const orderService = new OrderService();
 const orderController = new OrderController(orderService);
 
 router.post("/orders",auth, validate(CreateOrderSchema, 'body'), orderController.createOrder.bind(orderController))
-
+router.get("/orders",auth, orderController.getOrdersByUser.bind(orderController))
 export default router;

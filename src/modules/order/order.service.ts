@@ -48,6 +48,19 @@ export class OrderService{
   })
 
   return await OrderRepository.save(order)
-
  } 
+
+ async getOrdersByUser(user: User){
+  const savedUser = await this.userService.findUserById(user.id)
+  if(!savedUser){
+   throw new Error("User not found")
+  } 
+
+  return await OrderRepository.find({
+   where: {
+    user: savedUser
+   },
+   relations: ["orderItems.product"]
+  })
+ }
 }

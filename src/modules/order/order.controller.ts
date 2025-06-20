@@ -25,4 +25,14 @@ export class OrderController{
       res.status(500).json({message: (error as Error).message})
     }
   }
+
+  async getOrdersByUser(req: CustomRequest, res: Response): Promise<void>{
+    try{
+      const user = req.user as User;
+      const orders = await this.orderService.getOrdersByUser(user)
+      res.status(200).json(orders)
+    }catch(error){
+      res.status(500).json({message: (error as Error).message})
+    }
+  }
 }
