@@ -73,6 +73,5 @@ export async function generateInvoice(order: any) {
  drawText(`Grand Total: ₹${grandTotal}`, 420, y, true);
 
  const pdfBytes = await pdfDoc.save();
- fs.writeFileSync('invoice.pdf', pdfBytes);
- console.log('Invoice generated: invoice.pdf');
+ return Buffer.from(pdfBytes);
 }

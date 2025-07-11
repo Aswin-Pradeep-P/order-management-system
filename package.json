@@ -34,6 +34,7 @@
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.831.0",
     "@types/fontkit": "^2.0.8",
+    "aws-sdk": "^2.1692.0",
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",

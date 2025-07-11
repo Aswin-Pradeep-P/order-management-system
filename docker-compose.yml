@@ -30,7 +30,7 @@ services:
     ports:
       - "4566:4566"  # Edge port for all services
     environment:
-      - SERVICES=sqs
+      - SERVICES=s3,sqs
       - DEBUG=1
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test

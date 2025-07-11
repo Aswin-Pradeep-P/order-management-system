@@ -1,6 +1,6 @@
 export interface SQSMessage{
  type: SQSMessageType;
- payload: object;
+ payload: any;
 }
 
 export enum SQSMessageType{

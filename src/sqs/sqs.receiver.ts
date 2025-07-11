@@ -8,6 +8,7 @@ import sqsClient from "./sqs.client";
 import dotenv from "dotenv";
 import { SQSMessage, SQSMessageType } from "./sqs.types";
 import { generateInvoice } from "../util/pdf.util";
+import { uploadPdfFromBuffer } from "../s3/s3.client";
 dotenv.config();
 
 const QUEUE_NAME = process.env.AWS_QUEUE_NAME || "order-management-system";
@@ -35,7 +36,8 @@ export const pollMessages = async () => {
       const body = JSON.parse(msg.Body) as SQSMessage;
       if(body.type === SQSMessageType.OrderCreated){
         console.log("Order created", msg.Body)
-        generateInvoice(body.payload)
+        const pdfBuffer = await generateInvoice(body.payload)
+        uploadPdfFromBuffer(`${body.payload.id}.pdf`, pdfBuffer)
       }
 
     }catch(e){
