@@ -5,6 +5,10 @@ import { CreateOrderDto, OrderStatus, UpdateOrderDto } from "./order.types";
 import { ProductService } from "../product/product.service";
 import { OrderItem } from "../order-item/order-item.entity";
 import { UserService } from "../user/user.service";
+import { sendSqsMessage } from "../../sqs/sqs.sender";
+import { PDFDocument, rgb, StandardFonts } from "pdf-lib";
+import fs from 'fs';
+import { SQSMessageType } from "../../sqs/sqs.types";
 
 export class OrderService{
  private productService: ProductService;
@@ -46,7 +50,13 @@ export class OrderService{
    status:OrderStatus.PENDING
   })
 
-  return await OrderRepository.save(order)
+  const createdOrder = await OrderRepository.save(order);
+
+  const sqsMessage = {type: SQSMessageType.OrderCreated, payload: createdOrder};
+
+  sendSqsMessage(JSON.stringify(sqsMessage));
+
+  return createdOrder;
  } 
 
  async updateOrder(orderId: string, updateOrderPayload: UpdateOrderDto){
@@ -77,8 +87,6 @@ export class OrderService{
     }))
    }
   }
-
-  console.log(order)
 
   return await OrderRepository.save(order)
  }

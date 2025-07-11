@@ -6,6 +6,8 @@ import {
 import sqsClient from "./sqs.client";
 
 import dotenv from "dotenv";
+import { SQSMessage, SQSMessageType } from "./sqs.types";
+import { generateInvoice } from "../util/pdf.util";
 dotenv.config();
 
 const QUEUE_NAME = process.env.AWS_QUEUE_NAME || "order-management-system";
@@ -27,6 +29,19 @@ export const pollMessages = async () => {
 
  for (const msg of response.Messages) {
    console.log("Received message:", msg.Body);
+
+   if(msg.Body){
+    try{
+      const body = JSON.parse(msg.Body) as SQSMessage;
+      if(body.type === SQSMessageType.OrderCreated){
+        console.log("Order created", msg.Body)
+        generateInvoice(body.payload)
+      }
+
+    }catch(e){
+      console.log("Error parsing Message body")
+    }
+   }
 
    // Delete the message
    if (msg.ReceiptHandle) {

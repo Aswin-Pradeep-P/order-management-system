@@ -33,11 +33,14 @@
   },
   "dependencies": {
     "@aws-sdk/client-sqs": "^3.831.0",
+    "@types/fontkit": "^2.0.8",
     "bcrypt": "^6.0.0",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
+    "fontkit": "^2.0.4",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
+    "pdf-lib": "^1.17.1",
     "pg": "^8.16.0",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.24"

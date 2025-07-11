@@ -8,7 +8,7 @@ const QUEUE_NAME = process.env.AWS_QUEUE_NAME || "order-management-system";
 
 const queueUrl = `${process.env.AWS_ENDPOINT}/000000000000/${QUEUE_NAME}`;
 
-export const sendMessage = async (message: string) => {
+export const sendSqsMessage = async (message: string) => {
   const command: SendMessageCommandInput = {
     QueueUrl: queueUrl,
     MessageBody: message,
