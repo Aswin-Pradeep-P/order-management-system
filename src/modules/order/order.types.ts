@@ -5,6 +5,14 @@ export type CreateOrderDto = {
   }[];
 }
 
+export type UpdateOrderDto = {
+  status?: OrderStatus;
+  orderItems?: {
+    productId: string;
+    quantity: number;
+  }[];
+}
+
 export enum OrderStatus {
   PENDING = 'pending',
   CONFIRMED = 'confirmed',

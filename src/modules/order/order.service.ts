@@ -1,8 +1,7 @@
 import { OrderItemRepository } from "../order-item/order-item.respostory";
 import { User } from "../user/user.entity";
-import { Order } from "./order.entity";
 import { OrderRepository } from "./order.repository";
-import { CreateOrderDto, OrderStatus } from "./order.types";
+import { CreateOrderDto, OrderStatus, UpdateOrderDto } from "./order.types";
 import { ProductService } from "../product/product.service";
 import { OrderItem } from "../order-item/order-item.entity";
 import { UserService } from "../user/user.service";
@@ -50,6 +49,40 @@ export class OrderService{
   return await OrderRepository.save(order)
  } 
 
+ async updateOrder(orderId: string, updateOrderPayload: UpdateOrderDto){
+  const order = await OrderRepository.findOne({
+   where: {
+    id: orderId
+   }
+  })
+
+  if(!order){
+   throw new Error("Order not found")
+  }
+
+  if(updateOrderPayload.status){
+   order.status = updateOrderPayload.status
+  }
+
+  if(updateOrderPayload.orderItems){
+   for(const item of updateOrderPayload.orderItems){
+    const product = await this.productService.getProductById(item.productId);
+    if(!product){
+     throw new Error("Product not found")
+    }
+    
+    order.orderItems.push(OrderItemRepository.create({
+     product: product,
+     quantity: item.quantity
+    }))
+   }
+  }
+
+  console.log(order)
+
+  return await OrderRepository.save(order)
+ }
+
  async getOrdersByUser(user: User){
   const savedUser = await this.userService.findUserById(user.id)
   if(!savedUser){
@@ -62,5 +95,15 @@ export class OrderService{
    },
    relations: ["orderItems.product"]
   })
+ }
+
+ async deleteOrder(orderId: string){
+  const order = await OrderRepository.findOne({where : {id: orderId}})
+
+  if(!order){
+   throw Error("Order not found");
+  }
+
+  return await OrderRepository.delete(order)
  }
 }
